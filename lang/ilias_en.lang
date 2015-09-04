@@ -1,0 +1,30 @@
+Dropbox#:#Dropbox
+activate_public_links#:#Aktivieren von Direktlinks
+info_activate_public_links#:#Das Aktivieren von Direktlinks empfiehlt sich, wenn grosse Dateien über diesen Ordner zum Download angeboten werden. Achtung: Falls sich sensible Dateien in diesem Ordner befinden, sind Direktlinks nicht empfehlenswert, da bei jedem Klick auf den Link die Datei für kurze Zeit über diesen Link öffentlich zugänglich ist.
+max_file_size#:#Maximale Dateigrösse (in MB)
+info_max_file_size#:#Uploadgrenze pro Datei
+app_name#:#Applikationsname
+config_info_app_name#:#Name der Applikation, welche auf Dropox registriert wurde (in der "Apps Console" auf Dropbox einsehbar)
+app_key#:#Key
+config_info_app_key#:#Key der Applikation, welche auf Dropox registriert wurde (in der "Apps Console" auf Dropbox einsehbar)
+app_secret#:#Secret
+config_info_app_secret#:#Secret der Applikation, welche auf Dropox registriert wurde (in der "Apps Console" auf Dropbox einsehbar)
+default_max_file_size#:#Maximale Dateigrösse für Uploads
+config_max_file_size#:#Maximale Dateigrösse individuell konfigurierbar
+config_info_default_max_upload_size#:#Standarteinstellung für die Maximale Dateigrösse für Uploads (in MB)
+config_info_config_max_upload_size#:#Die Maximale Dateigrösse kann für jedes einzelne Cloud Objekt individuell konfiguriert werden.
+default_allow_public_links#:#Direktlinks aktivieren
+default_info_config_allow_public_links#:#Das Aktivieren von Direktlinks empfiehlt sich, wenn grosse Dateien über diesen Ordner zum Download angeboten werden. Achtung: Falls sich sensible Dateien in diesem Ordner befinden, sind Direktlinks nicht empfehlenswert, da die Datei für kurze Zeit bei Dropbox über diesen Link zugänglich ist.
+default_allow_public_links_config_allow_public_links#:#Aktivierung von Direktlinks konfigurierbar
+config_default_config_allow_public_links_info#:#Die Aktivierung von Direktlinks kann für jedes einzelne Cloud Objekt individuell konfiguriert werden.
+configuration#:#Konfiguration
+base_folder#:#Basisverzeichnis
+create_info#:#
+create_info1#:#Dieser Service speichert Daten auf Dropbox.com mit Sitz in den Vereinigten Staaten. Mit der Nutzung dieser Dropbox-Cloud respektieren Sie die Reglemente und Richtlininen Ihrer Institution <IhreURL> sowie die Datenschutzrichtlinien von Dropbox <a href="https://www.dropbox.com/privacy">www.dropbox.com/privacy</a>. Nutzen Sie Verschlüsselungstechniken, um sensiblen Daten zuverlässig zu schützen.
+create_info2#:#In Ihrer Dropbox wird automatisch die Ordnerstruktur "Apps/
+create_info3#:#" angelegt/genutzt.
+default_base_folder#:#Erstelle/verwende gleichnamigen Ordner in Dropbox
+custom_base_folder#:#Erstelle/verwende folgende Verzeichnisbezeichnung
+custom_base_folder_input#:#Ordnerstruktur in Dropbox
+custom_base_folder_input_info#:#Trennen Sie verschiedene Unterordner mit "/". Die Daten werden in den letzten Unterordner gespeichert.
+invalid_character#:#. Fehlermeldung: Ungültige Zeichen: \\ / : ? * < > \ im Ordnernamen
