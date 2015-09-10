@@ -15,6 +15,7 @@ ____  _/__  /____  _/__    |_  ___/    __  // / __  // /
 __/ /  _  /____/ /  _  ___ |___/ /     /__  __/_/__  __/
 /___/  /_____/___/  /_/  |_/____/        /_/  _(_)/_/
 
+Have a look at the [full Documentation](/doc/Documentation.pdf?raw=true)
 
 ## How to install: ##
 
