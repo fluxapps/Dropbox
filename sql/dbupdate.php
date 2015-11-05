@@ -18,9 +18,10 @@ $fields = array(
         'type' => 'boolean',
     )
 );
-
-$ilDB->createTable($plugin_object->getPluginTableName(), $fields);
-$ilDB->addPrimaryKey($plugin_object->getPluginTableName(), array("id"));
+if(!$ilDB->tableExists($plugin_object->getPluginTableName())) {
+    $ilDB->createTable($plugin_object->getPluginTableName(), $fields);
+    $ilDB->addPrimaryKey($plugin_object->getPluginTableName(), array("id"));
+}
 ?>
 <#2>
 <?php
