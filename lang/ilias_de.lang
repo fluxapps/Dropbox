@@ -28,3 +28,6 @@ custom_base_folder#:#Erstelle/verwende folgende Verzeichnisbezeichnung
 custom_base_folder_input#:#Ordnerstruktur in Dropbox
 custom_base_folder_input_info#:#Trennen Sie verschiedene Unterordner mit "/". Die Daten werden in den letzten Unterordner gespeichert.
 invalid_character#:#</br>Fehlermeldung: Ungültige Zeichen: \\ / : ? * < > \ im Ordnernamen
+online#:#Online
+config_default_online#:#Standard Online
+config_info_default_online#:#Neue Dropbox Cloud Objekte als Standard Online schalten
