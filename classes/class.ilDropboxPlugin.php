@@ -9,15 +9,14 @@ include_once("./Modules/Cloud/classes/class.ilCloudHookPlugin.php");
  *
  * @ingroup ModulesCloud
  */
+class ilDropboxPlugin extends ilCloudHookPlugin {
 
-class ilDropboxPlugin extends ilCloudHookPlugin
-{
-    /**
-     * @return string
-     */
-    public function getPluginName()
-    {
-        return "Dropbox";
-    }
+	/**
+	 * @return string
+	 */
+	public function getPluginName() {
+		return "Dropbox";
+	}
 }
+
 ?>
