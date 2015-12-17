@@ -39,6 +39,13 @@ class ilDropboxCreationGUI extends ilCloudPluginCreationGUI
         $sub_selection->setValue("dropbox_default_base_folder");
 
         $option->addSubItem($sub_selection);
+		
+		$sub_selection2 = new ilCheckboxInputGUI($this->txt("online"), "online");
+		
+		if($this->getAdminConfigObject()->getValue('config_default_online')){
+			$sub_selection2->setChecked(true);
+		}
+        $option->addSubItem($sub_selection2);
     }
 
     /**
@@ -55,6 +62,10 @@ class ilDropboxCreationGUI extends ilCloudPluginCreationGUI
         {
             $obj->setRootFolder($form->getInput("dropbox_custom_base_folder_input"));
         }
+		if($form->getInput("online")=="1"){
+			$obj->setOnline(true);
+			$obj->doUpdate();
+		}
     }
 }
 
