@@ -15,6 +15,13 @@ include_once("./Modules/Cloud/classes/class.ilCloudPluginCreationGUI.php");
  */
 class ilDropboxCreationGUI extends ilCloudPluginCreationGUI {
 
+	const F_DROPBOX_DEFAULT_BASE_FOLDER = "dropbox_default_base_folder";
+	const F_DROPBOX_CUSTOM_BASE_FOLDER_INPUT = "dropbox_custom_base_folder_input";
+	const F_BASE_FOLDER = "dropbox_base_folder";
+	const F_ONLINE = "online";
+	const F_DROPBOX_CUSTOM_FOLDER_SELECTION = "dropbox_custom_folder_selection";
+
+
 	/**
 	 * @param ilRadioOption $option
 	 * @throws ilCloudPluginConfigException
@@ -22,13 +29,13 @@ class ilDropboxCreationGUI extends ilCloudPluginCreationGUI {
 	public function initPluginCreationFormSection(ilRadioOption $option) {
 		$option->setInfo($this->txt("create_info1") . "</br>" . $this->txt("create_info2") . $this->getAdminConfigObject()->getAppName()
 			. $this->txt("create_info3"));
-		$sub_selection = new ilRadioGroupInputGUI($this->txt("base_folder"), "dropbox_base_folder");
+		$sub_selection = new ilRadioGroupInputGUI($this->txt(self::F_BASE_FOLDER), "dropbox_base_folder");
 		$sub_selection->setRequired(true);
 
-		$option_default = new ilRadioOption($this->txt("default_base_folder"), "dropbox_default_base_folder");
+		$option_default = new ilRadioOption($this->txt("default_base_folder"), self::F_DROPBOX_DEFAULT_BASE_FOLDER);
 
-		$option_custom = new ilRadioOption($this->txt("custom_base_folder"), "dropbox_custom_folder_selection");
-		$custom_base_folder_input = new ilTextInputGUI($this->txt("custom_base_folder_input"), "dropbox_custom_base_folder_input");
+		$option_custom = new ilRadioOption($this->txt("custom_base_folder"), self::F_DROPBOX_CUSTOM_FOLDER_SELECTION);
+		$custom_base_folder_input = new ilTextInputGUI($this->txt("custom_base_folder_input"), self::F_DROPBOX_CUSTOM_BASE_FOLDER_INPUT);
 		$custom_base_folder_input->setRequired(true);
 		$custom_base_folder_input->setInfo($this->txt("custom_base_folder_input_info"));
 		$option_custom->addSubItem($custom_base_folder_input);
@@ -36,11 +43,11 @@ class ilDropboxCreationGUI extends ilCloudPluginCreationGUI {
 		$sub_selection->addOption($option_default);
 		$sub_selection->addOption($option_custom);
 
-		$sub_selection->setValue("dropbox_default_base_folder");
+		$sub_selection->setValue(self::F_DROPBOX_DEFAULT_BASE_FOLDER);
 
 		$option->addSubItem($sub_selection);
 
-		$sub_selection2 = new ilCheckboxInputGUI($this->txt("online"), "online");
+		$sub_selection2 = new ilCheckboxInputGUI($this->txt(self::F_ONLINE), self::F_ONLINE);
 
 		if ($this->getAdminConfigObject()->getValue('config_default_online')) {
 			$sub_selection2->setChecked(true);
@@ -54,15 +61,15 @@ class ilDropboxCreationGUI extends ilCloudPluginCreationGUI {
 	 * @param ilObjCloud $obj
 	 */
 	function afterSavePluginCreation(ilObjCloud &$obj, ilPropertyFormGUI $form) {
-		if ($form->getInput("base_folder") == "dropbox_default_base_folder") {
+		if ($form->getInput(self::F_BASE_FOLDER) == self::F_DROPBOX_DEFAULT_BASE_FOLDER) {
 			$obj->setRootFolder($obj->getTitle());
 		} else {
-			$obj->setRootFolder($form->getInput("dropbox_custom_base_folder_input"));
+			$obj->setRootFolder($form->getInput(self::F_DROPBOX_CUSTOM_BASE_FOLDER_INPUT));
 		}
-		if ($form->getInput("online") == "1") {
+		if ($form->getInput(self::F_ONLINE) == "1") {
 			$obj->setOnline(true);
-			$obj->doUpdate();
 		}
+		$obj->doUpdate();
 	}
 }
 

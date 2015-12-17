@@ -65,15 +65,14 @@ class ilDropboxService extends ilCloudPluginService {
 
 	/**
 	 * @param string $callback_url
+	 * @throws ilCloudPluginConfigException
 	 */
 	public function authService($callback_url) {
 		try {
-
 			$auth_url = $this->getAuth($callback_url)->start(htmlspecialchars_decode($callback_url));
 			header("Location: $auth_url");
 		} catch (Exception $e) {
 			throw new ilCloudPluginConfigException(0, $e->getMessage());
-			throw new ilCloudPluginConfigException(ilCloudPluginConfigException::PLUGIN_NOT_PROPERLY_CONFIGURED);
 		}
 	}
 
@@ -163,6 +162,15 @@ class ilDropboxService extends ilCloudPluginService {
 	}
 
 
+	/**
+	 * @param null $path
+	 * @param null $file_tree
+	 * @return mixed
+	 * @throws \Dropbox\Exception_BadResponseCode
+	 * @throws \Dropbox\Exception_InvalidAccessToken
+	 * @throws \Dropbox\Exception_RetryLater
+	 * @throws \Dropbox\Exception_ServerError
+	 */
 	public function getLink($path = null, $file_tree = null) {
 		$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
 		list($url, $expires) = $this->getServiceObject()->createTemporaryDirectLink($path);
@@ -170,6 +178,13 @@ class ilDropboxService extends ilCloudPluginService {
 	}
 
 
+	/**
+	 * @param null $path
+	 * @param ilCloudFileTree|null $file_tree
+	 * @return array|bool|null
+	 * @throws Exception
+	 * @throws ilCloudException
+	 */
 	public function createFolder($path = null, ilCloudFileTree $file_tree = null) {
 		if ($file_tree) {
 			$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
@@ -193,12 +208,28 @@ class ilDropboxService extends ilCloudPluginService {
 	}
 
 
+	/**
+	 * @param $file
+	 * @param $name
+	 * @param string $path
+	 * @param null $file_tree
+	 * @return mixed
+	 */
 	public function putFile($file, $name, $path = '', $file_tree = null) {
 		$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
 		return $this->getServiceObject()->uploadFile($path . "/" . $name, \Dropbox\WriteMode::add(), fopen($file, "rb"));
 	}
 
 
+	/**
+	 * @param null $path
+	 * @param ilCloudFileTree|null $file_tree
+	 * @return mixed
+	 * @throws \Dropbox\Exception_BadResponseCode
+	 * @throws \Dropbox\Exception_InvalidAccessToken
+	 * @throws \Dropbox\Exception_RetryLater
+	 * @throws \Dropbox\Exception_ServerError
+	 */
 	public function deleteItem($path = null, ilCloudFileTree $file_tree = null) {
 		$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
 		return $this->getServiceObject()->delete($path);
