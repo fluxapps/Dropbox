@@ -20,7 +20,7 @@ config_default_config_allow_public_links_info#:#Die Aktivierung von Direktlinks 
 configuration#:#Konfiguration
 base_folder#:#Basisverzeichnis
 create_info#:#
-create_info1#:#Dieser Service speichert Daten auf Dropbox.com mit Sitz in den Vereinigten Staaten. Mit der Nutzung dieser Dropbox-Cloud respektieren Sie die Reglemente und Richtlininen Ihrer Institution <IhreURL> sowie die Datenschutzrichtlinien von Dropbox <a href="https://www.dropbox.com/privacy">www.dropbox.com/privacy</a>. Nutzen Sie Verschlüsselungstechniken, um sensiblen Daten zuverlässig zu schützen.
+create_info1#:#Dieser Service speichert Daten auf Dropbox.com mit Sitz in den Vereinigten Staaten. Mit der Nutzung dieser Dropbox-Cloud respektieren Sie die Reglemente und Richtlininen Ihrer Institution <IhreURL> sowie die Datenschutzrichtlinien von Dropbox <a href="https://www.dropbox.com/privacy">www.dropbox.com/privacy</a>. Nutzen Sie Verschlüsselungstechniken, um sensible Daten zuverlässig zu schützen.
 create_info2#:#In Ihrer Dropbox wird automatisch die Ordnerstruktur "Apps/
 create_info3#:#" angelegt/genutzt.
 default_base_folder#:#Erstelle/verwende gleichnamigen Ordner in Dropbox
@@ -28,3 +28,6 @@ custom_base_folder#:#Erstelle/verwende folgende Verzeichnisbezeichnung
 custom_base_folder_input#:#Ordnerstruktur in Dropbox
 custom_base_folder_input_info#:#Trennen Sie verschiedene Unterordner mit "/". Die Daten werden in den letzten Unterordner gespeichert.
 invalid_character#:#</br>Fehlermeldung: Ungültige Zeichen: \\ / : ? * < > \ im Ordnernamen
+online#:#Online
+config_default_online#:#Standard Online
+config_info_default_online#:#Neue Dropbox Cloud Objekte als Standard Online schalten

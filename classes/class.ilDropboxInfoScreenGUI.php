@@ -13,17 +13,16 @@ include_once("./Modules/Cloud/classes/class.ilCloudPluginInfoScreenGUI.php");
  * @extends ilCloudPluginGUI
  * @ingroup ModulesCloud
  */
-class ilDropboxInfoScreenGUI extends ilCloudPluginInfoScreenGUI
-{
-    /**
-     * show information screen
-     */
-    public function getPluginInfo()
-    {
-        global $lng;
-        $this->info->addSection("Dropbox");
-        $this->info->addProperty($lng->txt("info"), $this->txt("create_info1"));
-    }
+class ilDropboxInfoScreenGUI extends ilCloudPluginInfoScreenGUI {
+
+	/**
+	 * show information screen
+	 */
+	public function getPluginInfo() {
+		global $lng;
+		$this->info->addSection("Dropbox");
+		$this->info->addProperty($lng->txt("info"), $this->txt("create_info1"));
+	}
 }
 
 ?>
