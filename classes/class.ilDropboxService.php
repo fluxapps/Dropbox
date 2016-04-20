@@ -234,6 +234,13 @@ class ilDropboxService extends ilCloudPluginService {
 		$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
 		return $this->getServiceObject()->delete($path);
 	}
+
+	public function isCaseSensitive()
+	{
+		return true;
+	}
+
+
 }
 
 ?>
