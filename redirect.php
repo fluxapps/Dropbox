@@ -11,7 +11,7 @@ if ($splitPos === false)
     $state       = substr($_GET["state"], $splitPos + 1);
 }
 
-$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'HTTPS://' : 'HTTP://';
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' : 'http://';
 
 $path = str_replace("Customizing/global/plugins/Modules/Cloud/CloudHook/Dropbox/redirect.php", "", $_SERVER['SCRIPT_NAME']);
 
