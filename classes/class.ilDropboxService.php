@@ -112,7 +112,7 @@ class ilDropboxService extends ilCloudPluginService {
 	}
 
 
-	public function addToFileTree(ilCloudFileTree &$file_tree, $rel_parent_folder = "/") {
+	public function addToFileTree(ilCloudFileTree  $file_tree, $rel_parent_folder = "/") {
 		try {
 			$parent_folder = ilCloudUtil::joinPaths($file_tree->getRootPath(), $rel_parent_folder);
 			$folder = $this->getServiceObject()->getMetadataWithChildren($parent_folder);
