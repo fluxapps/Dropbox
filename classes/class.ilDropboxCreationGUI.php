@@ -17,7 +17,7 @@ class ilDropboxCreationGUI extends ilCloudPluginCreationGUI {
 
 	const F_DROPBOX_DEFAULT_BASE_FOLDER = "dropbox_default_base_folder";
 	const F_DROPBOX_CUSTOM_BASE_FOLDER_INPUT = "dropbox_custom_base_folder_input";
-	const F_BASE_FOLDER = "dropbox_base_folder";
+	const F_BASE_FOLDER = "base_folder";
 	const F_ONLINE = "online";
 	const F_DROPBOX_CUSTOM_FOLDER_SELECTION = "dropbox_custom_folder_selection";
 

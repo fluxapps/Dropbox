@@ -17,6 +17,6 @@ class ilDropboxPlugin extends ilCloudHookPlugin {
 	public function getPluginName() {
 		return "Dropbox";
 	}
-}
 
-?>
+
+}

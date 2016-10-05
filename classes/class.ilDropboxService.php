@@ -67,7 +67,7 @@ class ilDropboxService extends ilCloudPluginService {
 	 * @param string $callback_url
 	 * @throws ilCloudPluginConfigException
 	 */
-	public function authService($callback_url) {
+	public function authService($callback_url = "") {
 		try {
 			$auth_url = $this->getAuth($callback_url)->start(htmlspecialchars_decode($callback_url));
 			header("Location: $auth_url");
@@ -234,6 +234,13 @@ class ilDropboxService extends ilCloudPluginService {
 		$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
 		return $this->getServiceObject()->delete($path);
 	}
+
+	public function isCaseSensitive()
+	{
+		return true;
+	}
+
+
 }
 
 ?>
