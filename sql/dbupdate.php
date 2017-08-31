@@ -15,7 +15,8 @@ $fields = array(
         'length' => 256
     ),
     'public_link' => array(
-        'type' => 'boolean',
+        'type' => 'integer',
+	    'length' => 1
     )
 );
 if(!$ilDB->tableExists($plugin_object->getPluginTableName())) {
