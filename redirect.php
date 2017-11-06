@@ -1,23 +1,16 @@
 <?php
-$splitPos = strpos($_GET["state"], "|");
-if ($splitPos === false) {
-	//something went wrong
-	$state = null;
-	echo "Error in Auth, state equqals null";
-	exit;
-} else {
-	$state = substr($_GET["state"], $splitPos + 1);
-}
-
+$state = urldecode($_GET["state"]);
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https://' : 'http://';
 
 $path = str_replace("Customizing/global/plugins/Modules/Cloud/CloudHook/Dropbox/redirect.php", "", $_SERVER['SCRIPT_NAME']);
 
-$address = $_SERVER['SERVER_NAME'];
+$address = $_SERVER['HTTP_HOST'];
 
 if (array_key_exists("code", $_GET)) {
-	header('Location: ' . $protocol . $address . $path . htmlspecialchars_decode($state) . '&code='
-	       . $_GET["code"] . '&state=' . $_GET["state"]);
+	$str = $protocol . $address . $path . htmlspecialchars_decode($state) . '&code=' . $_GET["code"]
+	       . '&state=' . $_GET["state"];
+	header('Location: ' . $str);
 } else {
-	header('Location: ' . $protocol . $address . $path . htmlspecialchars_decode($state));
+	$str1 = $protocol . $address . $path . htmlspecialchars_decode($state);
+	header('Location: ' . $str1);
 }
