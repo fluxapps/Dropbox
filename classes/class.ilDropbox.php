@@ -1,10 +1,8 @@
 <?php
 
-include_once("./Modules/Cloud/classes/class.ilCloudPlugin.php");
-
 /**
  *
- * @author Timon Amstutz timon.amstutz@ilub.unibe.ch
+ * @author  Timon Amstutz timon.amstutz@ilub.unibe.ch
  * @version $Id$
  *
  * @ingroup ModulesCloud
@@ -54,11 +52,14 @@ class ilDropbox extends ilCloudPlugin {
 	 */
 	public function getAllowPublicLinks() {
 		if ($this->getAdminConfigObject()->getDefaultAllowPublicLinks()) {
-			if (!$this->getAdminConfigObject()->getDefaultAllowPublicLinksConfigAllowPublicLinks()) {
+			if (!$this->getAdminConfigObject()
+			          ->getDefaultAllowPublicLinksConfigAllowPublicLinks()) {
 				return true;
 			}
+
 			return $this->allow_public_links;
 		}
+
 		return false;
 	}
 
@@ -92,7 +93,7 @@ class ilDropbox extends ilCloudPlugin {
 	/**
 	 * Create object
 	 */
-	function create() {
+	public function create() {
 		global $ilDB, $ilUser;
 
 		$ilDB->manipulate("INSERT INTO " . $this->getTableName() . "
@@ -108,10 +109,11 @@ class ilDropbox extends ilCloudPlugin {
 	/**
 	 * Read data from db
 	 */
-	function read() {
+	public function read() {
 		global $ilDB;
 
-		$set = $ilDB->query("SELECT * FROM " . $this->getTableName() . " WHERE id = " . $ilDB->quote($this->getObjId(), "integer"));
+		$set = $ilDB->query("SELECT * FROM " . $this->getTableName() . " WHERE id = "
+		                    . $ilDB->quote($this->getObjId(), "integer"));
 		$rec = $ilDB->fetchAssoc($set);
 		if ($rec == null) {
 			return false;
@@ -120,6 +122,7 @@ class ilDropbox extends ilCloudPlugin {
 			$this->setToken($rec["token"]);
 			$this->setMaxFileSize($rec["max_file_size"]);
 		}
+
 		return true;
 	}
 
@@ -127,25 +130,25 @@ class ilDropbox extends ilCloudPlugin {
 	/**
 	 * Update data
 	 */
-	function doUpdate() {
+	public function doUpdate() {
 		global $ilDB;
 
 		$ilDB->manipulate("UPDATE " . $this->getTableName() . " SET
         		id = " . $ilDB->quote($this->getObjId(), "integer") . "," . "
         		public_link = " . $ilDB->quote($this->getAllowPublicLinks(), "boolean") . "," . "
         		token = " . $ilDB->quote($this->getToken(), "text") . "," . "
-        		max_file_size = " . $ilDB->quote($this->getMaxFileSize(), "text") . " WHERE id = " . $ilDB->quote($this->getObjId(), "integer"));
+        		max_file_size = " . $ilDB->quote($this->getMaxFileSize(), "text") . " WHERE id = "
+		                  . $ilDB->quote($this->getObjId(), "integer"));
 	}
 
 
 	/**
 	 * Delete
 	 */
-	function doDelete() {
+	public function doDelete() {
 		global $ilDB;
 
-		$ilDB->manipulate("DELETE FROM cld_cldh_cdpx_props WHERE " . " id = " . $ilDB->quote($this->getObjId(), "integer"));
+		$ilDB->manipulate("DELETE FROM cld_cldh_cdpx_props WHERE " . " id = "
+		                  . $ilDB->quote($this->getObjId(), "integer"));
 	}
 }
-
-?>

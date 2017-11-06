@@ -1,15 +1,14 @@
 <?php
 /* Copyright (c) 1998-2009 ILIAS open source, Extended GPL, see docs/LICENSE */
 
-include_once("./Modules/Cloud/classes/class.ilCloudPluginCreationGUI.php");
-
 /**
  * Class ilCloudPluginSettingsGUI
  *
- * Base class for the settings that need to be set during creation (like base folder). Needs to be overwritten if the plugin needs custom settings.
+ * Base class for the settings that need to be set during creation (like base folder). Needs to be
+ * overwritten if the plugin needs custom settings.
  *
- * @author Timon Amstutz <timon.amstutz@ilub.unibe.ch>
- * @author Theodor Truffer <tt@studer-raimann.ch>
+ * @author  Timon Amstutz <timon.amstutz@ilub.unibe.ch>
+ * @author  Theodor Truffer <tt@studer-raimann.ch>
  * @version $Id:
  * @ingroup ModulesCloud
  */
@@ -24,11 +23,13 @@ class ilDropboxCreationGUI extends ilCloudPluginCreationGUI {
 
 	/**
 	 * @param ilRadioOption $option
+	 *
 	 * @throws ilCloudPluginConfigException
 	 */
 	public function initPluginCreationFormSection(ilRadioOption $option) {
-		$option->setInfo($this->txt("create_info1") . "</br>" . $this->txt("create_info2") . $this->getAdminConfigObject()->getAppName()
-			. $this->txt("create_info3"));
+		$option->setInfo($this->txt("create_info1") . "</br>" . $this->txt("create_info2")
+		                 . $this->getAdminConfigObject()->getAppName()
+		                 . $this->txt("create_info3"));
 		$sub_selection = new ilRadioGroupInputGUI($this->txt(self::F_BASE_FOLDER), "dropbox_base_folder");
 		$sub_selection->setRequired(true);
 
@@ -58,7 +59,7 @@ class ilDropboxCreationGUI extends ilCloudPluginCreationGUI {
 
 	/**
 	 * @param ilPropertyFormGUI $form
-	 * @param ilObjCloud $obj
+	 * @param ilObjCloud        $obj
 	 */
 	function afterSavePluginCreation(ilObjCloud &$obj, ilPropertyFormGUI $form) {
 		if ($form->getInput(self::F_BASE_FOLDER) == self::F_DROPBOX_DEFAULT_BASE_FOLDER) {
@@ -72,5 +73,3 @@ class ilDropboxCreationGUI extends ilCloudPluginCreationGUI {
 		$obj->doUpdate();
 	}
 }
-
-?>

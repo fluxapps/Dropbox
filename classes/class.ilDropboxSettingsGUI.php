@@ -1,14 +1,12 @@
 <?php
 
-include_once("./Modules/Cloud/classes/class.ilCloudPluginSettingsGUI.php");
-
 /**
  *
- * @author Timon Amstutz timon.amstutz@ilub.unibe.ch
- * @version $Id$
+ * @author            Timon Amstutz timon.amstutz@ilub.unibe.ch
+ * @version           $Id$
  *
  * @ilCtrl_isCalledBy ilDropboxSettingsGUI: ilObjCloudGUI
- * @ingroup ModulesCloud
+ * @ingroup           ModulesCloud
  */
 class ilDropboxSettingsGUI extends ilCloudPluginSettingsGUI {
 
@@ -27,8 +25,7 @@ class ilDropboxSettingsGUI extends ilCloudPluginSettingsGUI {
 
 	public function initPluginSettings() {
 		if ($this->getAdminConfigObject()->getDefaultAllowPublicLinksConfigAllowPublicLinks()
-			&& $this->getAdminConfigObject()->getDefaultAllowPublicLinks()
-		) {
+		    && $this->getAdminConfigObject()->getDefaultAllowPublicLinks()) {
 			$public_links = new ilCheckboxInputGUI($this->txt("activate_public_links"), "activate_public_links");
 			$public_links->setInfo($this->txt("info_activate_public_links"));
 			$this->form->addItem($public_links);
@@ -45,7 +42,8 @@ class ilDropboxSettingsGUI extends ilCloudPluginSettingsGUI {
 
 
 	public function updatePluginSettings() {
-		$this->getPluginObject()->setAllowPublicLinks($this->form->getInput("activate_public_links"));
+		$this->getPluginObject()
+		     ->setAllowPublicLinks($this->form->getInput("activate_public_links"));
 		$this->getPluginObject()->setMaxFileSize($this->form->getInput("max_file_size"));
 		$this->getPluginObject()->doUpdate();
 	}
@@ -59,5 +57,3 @@ class ilDropboxSettingsGUI extends ilCloudPluginSettingsGUI {
 		$values["activate_public_links"] = $this->getPluginObject()->getAllowPublicLinks();
 	}
 }
-
-?>

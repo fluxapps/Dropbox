@@ -1,0 +1,23 @@
+{
+    "name": "studer-raimann/dropbox",
+    "require": {
+        "dropbox/dropbox-sdk": "^1.1"
+    },
+    "authors": [
+        {
+            "name": "Fabian Schmid",
+            "email": "fs@studer-raimann.ch"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "SRAG\\Plugins\\Dropbox\\": "src/"
+        },
+        "classmap": [
+            "classes",
+            "../../../../../../../Services/ActiveRecord",
+            "../../../../../../../Modules/Cloud"
+        ]
+    }
+
+}

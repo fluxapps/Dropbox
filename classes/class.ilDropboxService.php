@@ -6,7 +6,7 @@ include_once("./Modules/Cloud/classes/class.ilCloudUtil.php");
 
 /**
  *
- * @author Timon Amstutz timon.amstutz@ilub.unibe.ch
+ * @author  Timon Amstutz timon.amstutz@ilub.unibe.ch
  * @version $Id$
  *
  * @ingroup ModulesCloud
@@ -25,7 +25,6 @@ class ilDropboxService extends ilCloudPluginService {
 
 	public function __construct($service_name, $obj_id) {
 		parent::__construct($service_name, $obj_id);
-		require_once "./Customizing/global/plugins/Modules/Cloud/CloudHook/Dropbox/libs/Dropbox/lib/Dropbox/autoload.php";
 	}
 
 
@@ -45,9 +44,11 @@ class ilDropboxService extends ilCloudPluginService {
 			$client_identifier = $this->getAdminConfigObject()->getAppName();
 
 			$token_store = new Dropbox\ArrayEntryStore($_SESSION, 'dropbox-auth-token');
-			$redirect_uri = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Modules/Cloud/CloudHook/Dropbox/redirect.php';
+			$redirect_uri = ILIAS_HTTP_PATH
+			                . '/Customizing/global/plugins/Modules/Cloud/CloudHook/Dropbox/redirect.php';
 			$this->auth = new Dropbox\WebAuth($info, $client_identifier, $redirect_uri, $token_store);
 		}
+
 		return $this->auth;
 	}
 
@@ -57,19 +58,24 @@ class ilDropboxService extends ilCloudPluginService {
 	 */
 	public function getServiceObject() {
 		if (!$this->serviceObject) {
-			$this->serviceObject = new \Dropbox\Client($this->getPluginObject()->getToken(), $this->getAdminConfigObject()->getAppName());
+			$this->serviceObject = new \Dropbox\Client($this->getPluginObject()
+			                                                ->getToken(), $this->getAdminConfigObject()
+			                                                                   ->getAppName());
 		}
+
 		return $this->serviceObject;
 	}
 
 
 	/**
 	 * @param string $callback_url
+	 *
 	 * @throws ilCloudPluginConfigException
 	 */
 	public function authService($callback_url = "") {
 		try {
-			$auth_url = $this->getAuth($callback_url)->start(htmlspecialchars_decode($callback_url));
+			$auth_url = $this->getAuth($callback_url)
+			                 ->start(htmlspecialchars_decode($callback_url));
 			header("Location: $auth_url");
 		} catch (Exception $e) {
 			throw new ilCloudPluginConfigException(0, $e->getMessage());
@@ -83,6 +89,7 @@ class ilDropboxService extends ilCloudPluginService {
 			$this->getPluginObject()->setToken($access_token);
 			$this->getPluginObject()->doUpdate();
 			$this->createFolder($this->getPluginObject()->getCloudModulObject()->getRootFolder());
+
 			return true;
 		} catch (Dropbox\WebAuthException_NotApproved $ex) {
 			//User did not approve app.
@@ -97,7 +104,8 @@ class ilDropboxService extends ilCloudPluginService {
 		} catch (Dropbox\WebAuthException_Provider $ex) {
 			error_log("/dropbox-auth-finish: error redirect from Dropbox: " . $ex->getMessage());
 		} catch (Dropbox\Exception $ex) {
-			error_log("/dropbox-auth-finish: error communicating with Dropbox API: " . $ex->getMessage());
+			error_log("/dropbox-auth-finish: error communicating with Dropbox API: "
+			          . $ex->getMessage());
 		}
 	}
 
@@ -108,11 +116,12 @@ class ilDropboxService extends ilCloudPluginService {
 		if (!$result) {
 			throw new ilCloudException(ilCloudException::FOLDER_NOT_EXISTING_ON_SERVICE, $root_path);
 		}
+
 		return "id_" . sha1("/");
 	}
 
 
-	public function addToFileTree(ilCloudFileTree  $file_tree, $rel_parent_folder = "/") {
+	public function addToFileTree(ilCloudFileTree $file_tree, $rel_parent_folder = "/") {
 		try {
 			$parent_folder = ilCloudUtil::joinPaths($file_tree->getRootPath(), $rel_parent_folder);
 			$folder = $this->getServiceObject()->getMetadataWithChildren($parent_folder);
@@ -146,7 +155,8 @@ class ilDropboxService extends ilCloudPluginService {
 			$meta = $this->getServiceObject()->getFile($path, $temp);
 			header("Content-type: " . $meta["mime_type"]);
 			header('Content-Description: File Transfer');
-			header('Content-Disposition: attachment; filename=' . str_replace(' ', '_', basename($path)));
+			header('Content-Disposition: attachment; filename='
+			       . str_replace(' ', '_', basename($path)));
 			header('Content-Transfer-Encoding: binary');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate');
@@ -165,6 +175,7 @@ class ilDropboxService extends ilCloudPluginService {
 	/**
 	 * @param null $path
 	 * @param null $file_tree
+	 *
 	 * @return mixed
 	 * @throws \Dropbox\Exception_BadResponseCode
 	 * @throws \Dropbox\Exception_InvalidAccessToken
@@ -174,13 +185,15 @@ class ilDropboxService extends ilCloudPluginService {
 	public function getLink($path = null, $file_tree = null) {
 		$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
 		list($url, $expires) = $this->getServiceObject()->createTemporaryDirectLink($path);
+
 		return $url;
 	}
 
 
 	/**
-	 * @param null $path
+	 * @param null                 $path
 	 * @param ilCloudFileTree|null $file_tree
+	 *
 	 * @return array|bool|null
 	 * @throws Exception
 	 * @throws ilCloudException
@@ -200,7 +213,8 @@ class ilDropboxService extends ilCloudPluginService {
 				throw new ilCloudException(ilCloudException::FOLDER_ALREADY_EXISTING_ON_SERVICE, $path);
 			}
 			if (strpos($e->getMessage(), 'The following characters are not allowed') !== false) {
-				throw new ilCloudException(ilCloudException::FOLDER_CREATION_FAILED, $this->getPluginHookObject()->txt("invalid_character"));
+				throw new ilCloudException(ilCloudException::FOLDER_CREATION_FAILED, $this->getPluginHookObject()
+				                                                                          ->txt("invalid_character"));
 			} else {
 				throw $e;
 			}
@@ -209,21 +223,25 @@ class ilDropboxService extends ilCloudPluginService {
 
 
 	/**
-	 * @param $file
-	 * @param $name
+	 * @param        $file
+	 * @param        $name
 	 * @param string $path
-	 * @param null $file_tree
+	 * @param null   $file_tree
+	 *
 	 * @return mixed
 	 */
 	public function putFile($file, $name, $path = '', $file_tree = null) {
 		$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
-		return $this->getServiceObject()->uploadFile($path . "/" . $name, \Dropbox\WriteMode::add(), fopen($file, "rb"));
+
+		return $this->getServiceObject()->uploadFile($path . "/"
+		                                             . $name, \Dropbox\WriteMode::add(), fopen($file, "rb"));
 	}
 
 
 	/**
-	 * @param null $path
+	 * @param null                 $path
 	 * @param ilCloudFileTree|null $file_tree
+	 *
 	 * @return mixed
 	 * @throws \Dropbox\Exception_BadResponseCode
 	 * @throws \Dropbox\Exception_InvalidAccessToken
@@ -232,15 +250,12 @@ class ilDropboxService extends ilCloudPluginService {
 	 */
 	public function deleteItem($path = null, ilCloudFileTree $file_tree = null) {
 		$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
+
 		return $this->getServiceObject()->delete($path);
 	}
 
-	public function isCaseSensitive()
-	{
+
+	public function isCaseSensitive() {
 		return true;
 	}
-
-
 }
-
-?>
