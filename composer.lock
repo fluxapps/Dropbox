@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a48ee819e657c081ed813751861e787b",
+    "content-hash": "b4767de2461f5e387784c4dcaf6cfdf4",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -287,24 +287,24 @@
         },
         {
             "name": "tightenco/collect",
-            "version": "v5.5.16",
+            "version": "v5.3.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tightenco/collect.git",
-                "reference": "b4f148060842eeebb08edb005978360767af3630"
+                "reference": "07547aa6191f6d05b459ecea7c62526e18f33851"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/collect/zipball/b4f148060842eeebb08edb005978360767af3630",
-                "reference": "b4f148060842eeebb08edb005978360767af3630",
+                "url": "https://api.github.com/repos/tightenco/collect/zipball/07547aa6191f6d05b459ecea7c62526e18f33851",
+                "reference": "07547aa6191f6d05b459ecea7c62526e18f33851",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0"
+                "php": ">=5.5.9"
             },
             "require-dev": {
-                "mockery/mockery": "~1.0",
-                "phpunit/phpunit": "~6.0"
+                "mockery/mockery": "~0.9.4",
+                "phpunit/phpunit": "~4.1"
             },
             "type": "library",
             "autoload": {
@@ -330,7 +330,7 @@
                 "collection",
                 "laravel"
             ],
-            "time": "2017-10-16T16:11:46+00:00"
+            "time": "2016-10-25T18:10:45+00:00"
         }
     ],
     "packages-dev": [],
@@ -339,6 +339,11 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": []
+    "platform": {
+        "php": "5.6.0"
+    },
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "5.6.0"
+    }
 }
