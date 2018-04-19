@@ -78,11 +78,8 @@ class ilDropboxService extends ilCloudPluginService {
 
 
 	public function afterAuthService() {
-		global $DIC;
 		try {
-			$data = $this->getServiceObject()->getOAuth2Client()->getAccessToken($DIC->http()
-			                                                                         ->request()
-			                                                                         ->getQueryParams()["code"], $this->getRedirectURI());
+			$data = $this->getServiceObject()->getOAuth2Client()->getAccessToken($_GET["code"], $this->getRedirectURI());
 			$this->getPluginObject()->setToken($data["access_token"]);
 			$this->getPluginObject()->doUpdate();
 			$this->createFolder($this->getPluginObject()->getCloudModulObject()->getRootFolder());
