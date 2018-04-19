@@ -1,5 +1,5 @@
 <?php
-
+require_once('./Modules/Cloud/classes/class.ilCloudHookPlugin.php');
 /**
  *
  * @author  Timon Amstutz timon.amstutz@ilub.unibe.ch
