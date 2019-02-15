@@ -15,6 +15,9 @@
       "email": "fs@studer-raimann.ch"
     }
   ],
+  "support": {
+    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLDROPBOX"
+  },
   "autoload": {
     "psr-4": {
       "SRAG\\Plugins\\Dropbox\\": "src/"
