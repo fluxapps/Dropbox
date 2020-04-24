@@ -149,20 +149,18 @@ class ilDropboxService extends ilCloudPluginService {
 		}
 	}
 
-
-	/**
-	 * @param null                  $path
-	 * @param \ilCloudFileTree|null $file_tree
-	 */
+    /**
+     * @param null                  $path
+     * @param \ilCloudFileTree|null $file_tree
+     * @throws \Kunnu\Dropbox\Exceptions\DropboxClientException
+     */
 	public function getFile($path = null, ilCloudFileTree $file_tree = null) {
 		if ($this->getPluginObject()->getAllowPublicLinks()) {
 			$link = $this->getLink($path, $file_tree);
 			header('Location:' . $link);
 		} else {
 			$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
-			$temp = tmpfile();
-			$meta = $this->getServiceObject()->getFile($path, $temp);
-			header("Content-type: " . $meta["mime_type"]);
+			$meta = $this->getServiceObject()->download($path);
 			header('Content-Description: File Transfer');
 			header('Content-Disposition: attachment; filename='
 			       . str_replace(' ', '_', basename($path)));
@@ -170,12 +168,8 @@ class ilDropboxService extends ilCloudPluginService {
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate');
 			header('Pragma: public');
-			header('Content-Length: ' . $meta["bytes"]);
-			ob_clean();
-			flush();
-			fseek($temp, 0);
-			echo fread($temp, $meta["bytes"]);
-			fclose($temp);
+			header('Content-Length: ' . $meta->getMetadata()->getSize());
+			echo $meta->getContents();
 			exit;
 		}
 	}
