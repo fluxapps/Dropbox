@@ -234,7 +234,7 @@ class ilDropboxService extends ilCloudPluginService {
 	 */
 	public function putFile($file, $name, $path = '', $file_tree = null) {
 		$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
-		$path = ($path != '' ? $path . "/" : $path);
+		$path = (($path != '' && $path != '/') ? $path . "/" : $path);
 
 		$DropboxFile = $this->getServiceObject()->makeDropboxFile($file);
 		try {
