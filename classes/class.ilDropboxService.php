@@ -82,6 +82,7 @@ class ilDropboxService extends ilCloudPluginService {
 			$data = $this->getServiceObject()->getOAuth2Client()->getAccessToken($_GET["code"], $this->getRedirectURI());
 			$this->getPluginObject()->setToken($data["access_token"]);
 			$this->getPluginObject()->doUpdate();
+			$this->getServiceObject()->setAccessToken($data['access_token']);
 			$this->createFolder($this->getPluginObject()->getCloudModulObject()->getRootFolder());
 
 			return true;
