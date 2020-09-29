@@ -2,7 +2,10 @@
 
 use Kunnu\Dropbox\Dropbox;
 use Kunnu\Dropbox\DropboxApp;
-use Kunnu\Dropbox\DropboxFile;
+use Kunnu\Dropbox\Models\FolderMetadata;
+use Kunnu\Dropbox\Models\FileMetadata;
+use Kunnu\Dropbox\Models\DeletedMetadata;
+use Kunnu\Dropbox\Exceptions\DropboxClientException;
 
 require_once('./Customizing/global/plugins/Modules/Cloud/CloudHook/Dropbox/vendor/autoload.php');
 
@@ -17,11 +20,11 @@ class ilDropboxService extends ilCloudPluginService {
 
 	const REDIRECT_PHP = '/Customizing/global/plugins/Modules/Cloud/CloudHook/Dropbox/redirect.php';
 	/**
-	 * @var \Kunnu\Dropbox\Dropbox
+	 * @var Dropbox
 	 */
 	protected $serviceObject;
 	/**
-	 * @var \Kunnu\Dropbox\DropboxApp
+	 * @var DropboxApp
 	 */
 	protected $auth;
 
@@ -32,7 +35,7 @@ class ilDropboxService extends ilCloudPluginService {
 
 
 	/**
-	 * @return \Kunnu\Dropbox\DropboxApp
+	 * @return DropboxApp
 	 */
 	public function getAuth() {
 		if (!$this->auth) {
@@ -47,7 +50,7 @@ class ilDropboxService extends ilCloudPluginService {
 
 
 	/**
-	 * @return \Kunnu\Dropbox\Dropbox
+	 * @return Dropbox
 	 */
 	public function getServiceObject() {
 		if (!$this->serviceObject) {
@@ -86,7 +89,7 @@ class ilDropboxService extends ilCloudPluginService {
 			$this->createFolder($this->getPluginObject()->getCloudModulObject()->getRootFolder());
 
 			return true;
-		} catch (\Kunnu\Dropbox\Exceptions\DropboxClientException $ex) {
+		} catch (DropboxClientException $ex) {
 			return false;
 		}
 	}
@@ -96,7 +99,7 @@ class ilDropboxService extends ilCloudPluginService {
 	 * @param $root_path
 	 *
 	 * @return string
-	 * @throws \ilCloudException
+	 * @throws ilCloudException
 	 */
 	public function getRootId($root_path) {
 		$result = $this->getServiceObject()->getMetadata($root_path);
@@ -109,10 +112,9 @@ class ilDropboxService extends ilCloudPluginService {
 
 
 	/**
-	 * @param \ilCloudFileTree $file_tree
-	 * @param string           $rel_parent_folder
-	 *
-	 * @throws \Exception
+	 * @param ilCloudFileTree $file_tree
+	 * @param string          $rel_parent_folder
+	 * @throws Exception
 	 */
 	public function addToFileTree(ilCloudFileTree $file_tree, $rel_parent_folder = "/") {
 		try {
@@ -120,21 +122,21 @@ class ilDropboxService extends ilCloudPluginService {
 			$parent_folder = ilCloudUtil::joinPaths($file_tree->getRootPath(), $rel_parent_folder);
 			$folder = $dropbox->listFolder($parent_folder);
 			/**
-			 * @var $item \Kunnu\Dropbox\Models\FileMetadata|\Kunnu\Dropbox\Models\FolderMetadata
+			 * @var $item FileMetadata|FolderMetadata
 			 */
 			foreach ($folder->getItems() as $item) {
 				switch (true) {
-					case ($item instanceof \Kunnu\Dropbox\Models\FolderMetadata):
+					case ($item instanceof FolderMetadata):
 						/**
-						 * @var $item \Kunnu\Dropbox\Models\FolderMetadata
+						 * @var $item FolderMetadata
 						 */
 						$rel_path = substr($item->getPathLower(), strlen($file_tree->getRootPath()));
 						$id = "id_" . sha1($rel_path);
 						$file_tree->addNode($rel_path, $id, true);
 						break;
-					case ($item instanceof \Kunnu\Dropbox\Models\FileMetadata):
+					case ($item instanceof FileMetadata):
 						/**
-						 * @var $item \Kunnu\Dropbox\Models\FileMetadata
+						 * @var $item FileMetadata
 						 */
 						$rel_path = substr($item->getPathLower(), strlen($file_tree->getRootPath()));
 						$id = "id_" . sha1($rel_path);
@@ -151,9 +153,9 @@ class ilDropboxService extends ilCloudPluginService {
 	}
 
     /**
-     * @param null                  $path
-     * @param \ilCloudFileTree|null $file_tree
-     * @throws \Kunnu\Dropbox\Exceptions\DropboxClientException
+     * @param null                 $path
+     * @param ilCloudFileTree|null $file_tree
+     * @throws DropboxClientException
      */
 	public function getFile($path = null, ilCloudFileTree $file_tree = null) {
 		if ($this->getPluginObject()->getAllowPublicLinks()) {
@@ -228,8 +230,7 @@ class ilDropboxService extends ilCloudPluginService {
 	 * @param                  $file
 	 * @param                  $name
 	 * @param string           $path
-	 * @param \ilCloudFileTree $file_tree
-	 *
+	 * @param ilCloudFileTree  $file_tree
 	 * @return mixed
 	 */
 	public function putFile($file, $name, $path = '', $file_tree = null) {
@@ -248,10 +249,9 @@ class ilDropboxService extends ilCloudPluginService {
 
 
 	/**
-	 * @param null                  $path
-	 * @param \ilCloudFileTree|null $file_tree
-	 *
-	 * @return \Kunnu\Dropbox\Models\DeletedMetadata|\Kunnu\Dropbox\Models\FileMetadata|\Kunnu\Dropbox\Models\FolderMetadata
+	 * @param null                 $path
+	 * @param ilCloudFileTree|null $file_tree
+	 * @return DeletedMetadata|FileMetadata|FolderMetadata
 	 */
 	public function deleteItem($path = null, ilCloudFileTree $file_tree = null) {
 		$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
