@@ -233,7 +233,7 @@ class ilDropboxService extends ilCloudPluginService {
 	 * @param ilCloudFileTree  $file_tree
 	 * @return mixed
 	 */
-	public function putFile($file, $name, $path = '', $file_tree = null) {
+	public function putFile($file, $name, $path = '', ilCloudFileTree $file_tree = null) {
 		$path = ilCloudUtil::joinPaths($file_tree->getRootPath(), $path);
 		$path = (($path != '' && $path != '/') ? $path . "/" : $path);
 
