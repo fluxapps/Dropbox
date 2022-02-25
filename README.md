@@ -2,8 +2,6 @@ Have a look at the [full Documentation](/doc/Documentation.pdf?raw=true)
 
 ## How to install: ##
 
-Requires php 5.3
-
 ### 1. Put Files into Customizing Foler
 Since you are reading this file, we guess that you successfully downloaded the complete source of the Dropbox-Plugin. Put the whole Dropbox-Plugin into the following Directory: Customizing/global/plugins/Modules/Cloud/CloudHook/
 If some subdirectories do not yet exist, you have to create them.
